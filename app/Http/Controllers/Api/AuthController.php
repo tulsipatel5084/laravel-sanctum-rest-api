@@ -42,4 +42,39 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function login(Request $request){
+
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        // Attempt to find the user by email
+        $user = User::where('email', $request->email)->first();
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid credentials',
+            ], 401);
+        }
+
+        // Return a JSON response indicating successful login
+        return response()->json([
+            'success' => true,
+            'message' => 'User logged in successfully',
+            'token' => $user->createToken('auth_token')->plainTextToken,
+            'user' => $user,
+        ]);
+
+    }
 }
