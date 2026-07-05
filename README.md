@@ -1,59 +1,310 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Sanctum REST API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful API built with **Laravel 12** and **Laravel Sanctum** that provides secure user authentication and Product CRUD operations.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* User Registration
+* User Login
+* User Logout
+* Token-Based Authentication using Laravel Sanctum
+* Protected API Routes
+* Product CRUD Operations
+* Request Validation
+* JSON Responses
+* MySQL Database
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Tech Stack
 
-## Learning Laravel
+* Laravel 12
+* PHP 8.2+
+* Laravel Sanctum
+* MySQL
+* Composer
+* Postman (API Testing)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 📂 Project Structure
 
-## Laravel Sponsors
+```text
+app/
+├── Http/
+│   └── Controllers/
+│       └── Api/
+│           ├── AuthController.php
+│           └── ProductController.php
+├── Models/
+│   ├── User.php
+│   └── Product.php
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+database/
+└── migrations/
 
-### Premium Partners
+routes/
+└── api.php
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 📥 Installation
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Clone the Repository
 
-## Code of Conduct
+```bash
+git clone https://github.com/tulsipatel5084/laravel-sanctum-rest-api.git
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 2. Navigate to the Project
 
-## Security Vulnerabilities
+```bash
+cd laravel-sanctum-rest-api
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 3. Install Dependencies
 
-## License
+```bash
+composer install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 4. Create Environment File
+
+```bash
+cp .env.example .env
+```
+
+### 5. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Configure Database
+
+Update your `.env` file:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=rest_api
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 7. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 8. Start Development Server
+
+```bash
+php artisan serve
+```
+
+Server URL:
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+# 🔐 Authentication
+
+The API uses **Laravel Sanctum** for authentication.
+
+After successful login or registration, a token is returned.
+
+Include the token in the request header:
+
+```http
+Authorization: Bearer YOUR_ACCESS_TOKEN
+Accept: application/json
+```
+
+---
+
+# 📌 API Endpoints
+
+## Authentication
+
+### Register
+
+**POST**
+
+```
+/api/register
+```
+
+Request
+
+```json
+{
+    "name":"Tulsi Patel",
+    "email":"tulsipatel5084@gmail.com",
+    "password":"password123"
+}
+```
+
+---
+
+### Login
+
+**POST**
+
+```
+/api/login
+```
+
+Request
+
+```json
+{
+    "email":"tulsipatel5084@gmail.com",
+    "password":"password123"
+}
+```
+
+---
+
+### Logout
+
+**POST**
+
+```
+/api/logout
+```
+
+Authentication Required
+
+---
+
+# 📦 Product API
+
+## Get All Products
+
+**GET**
+
+```
+/api/products
+```
+
+---
+
+## Create Product
+
+**POST**
+
+```
+/api/products
+```
+
+Request
+
+```json
+{
+    "name":"Laptop",
+    "description":"Dell Inspiron",
+    "price":50000
+}
+```
+
+---
+
+## Get Single Product
+
+**GET**
+
+```
+/api/products/{id}
+```
+
+---
+
+## Update Product
+
+**PUT**
+
+```
+/api/products/{id}
+```
+
+Request
+
+```json
+{
+    "name":"MacBook Pro",
+    "description":"Apple Laptop",
+    "price":180000
+}
+```
+
+---
+
+## Delete Product
+
+**DELETE**
+
+```
+/api/products/{id}
+```
+
+---
+
+# 📬 API Response Example
+
+```json
+{
+    "user": {
+        "id": 1,
+        "name": "Tulsi Patel",
+        "email": "tulsipatel5084@gmail.com"
+    },
+    "token": "1|abcdefghijklmnopqrstuvwxyz"
+}
+```
+
+---
+
+# 🧪 Testing
+
+You can test the API using:
+
+* Postman
+* Thunder Client (VS Code)
+* Insomnia
+
+---
+
+# 📸 Screenshots
+
+You can add screenshots of:
+
+* Register API
+* Login API
+* Product CRUD
+* Logout API
+
+---
+
+# 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+# 👩‍💻 Author
+
+**Tulsi Patel**
+
+* GitHub: https://github.com/tulsipatel5084
+* Email: [tulsipatel5084@gmail.com](mailto:tulsipatel5084@gmail.com)
+
+---
+
+⭐ If you found this project helpful, consider giving it a star on GitHub!
